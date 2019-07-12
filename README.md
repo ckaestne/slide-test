@@ -30,5 +30,5 @@ Run `reveal-md . --watch` to run a local webserver that shows the slides and aut
 
 ## Static sites and circle-CI automation
 
-To produce static slides, run `reveal-md . --static` (or `npm run generate`). The slides will be created in the `_static` directory. Circle-ci automates the process and pushes the results to the `gh-pages` branch.
+To produce static slides, run `reveal-md . --static` (or `npm run generate`). The slides will be created in the `_static` directory. Circle-ci automates the process and pushes the results to the `gh-pages` branch, which can be seen at https://ckaestne.github.io/slide-test/.
 
