@@ -35,4 +35,12 @@ jobs:
 
       # run tests!
       - run: npm run generate
-      - run: node node_modules/gh-pages/bin/gh-pages.js --dist _static
+      - add_ssh_keys:
+          fingerprints:
+            - "86:ba:3d:bf:47:f3:b4:24:8f:cc:bb:34:53:10:3f:e1"
+      - run: 
+          name: deploy static slides to gh-pages
+          command: |
+            git config user.email "ci-build@cs.cmu.edu"
+            git config user.name "ci-build"
+            node node_modules/gh-pages/bin/gh-pages.js --dist _static
