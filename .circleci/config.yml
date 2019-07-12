@@ -35,4 +35,4 @@ jobs:
 
       # run tests!
       - run: npm run generate
-      - run: gh-pages --dist _site
+      - run: node node_modules/gh-pages/bin/gh-pages.js --dist _static
