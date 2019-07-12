@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Data and Model Quality (QA for ML)</title>
+    <link rel="stylesheet" href="./../css/reveal.css" />
+    <link rel="stylesheet" href="./../css/theme/white.css" id="theme" />
+    <link rel="stylesheet" href="./../css/highlight/zenburn.css" />
+    <link rel="stylesheet" href="./../css/print/paper.css" type="text/css" media="print" />
+    <link rel="stylesheet" href="./../_assets/_assets/cmu.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section ><section data-markdown><script type="text/template">  
+
+
+# Data and Model Quality (QA for ML)
+
+Christian Kaestner
+
+
+<a href="..">test</a>
+</script></section><section data-markdown><script type="text/template">
+# Math
+
+$f(x)=x_i+1$</script></section><section data-markdown><script type="text/template">
+# mermaid
+
+
+
+
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+</script></section><section data-markdown><script type="text/template">
+# Notes
+
+test
+
+<aside class="notes"><p>foo</p>
+<p>bar
+c</p>
+</aside></script></section><section data-markdown><script type="text/template">
+# 2 columns
+
+
+some text
+
+more text
+
+<!-- split -->
+![](course_overview.png)
+
+</script></section><section data-markdown><script type="text/template">
+<!-- colstart -->
+# nested columns
+
+
+
+c 1 Content
+<!-- col -->
+# right
+<!-- colstart -->
+inner
+<!-- col -->
+inner 2
+<!-- colend -->
+<!-- colend -->
+
+</script></section><section data-markdown><script type="text/template">
+<!-- small -->
+# Full slide in smaller font
+
+- a
+- b
+- b
+- b
+- b
+- b
+- b
+- b
+</script></section><section data-markdown><script type="text/template">
+# <!-- fit --> Long title that is made to fit on a slide without breaking
+
+using the fit comment
+</script></section><section data-markdown><script type="text/template">
+## And a table
+<!-- small -->
+
+| RestaurantID | Order| OrderTime|ReadyTime|PickupTime|
+|-|-|-|-|-|
+| 5 |5A;3;10;11C;C:No onion| 18:11|18:23|18:31|
+|...|
+|...|
+|...|
+
+</script></section></section><section  data-markdown><script type="text/template">
+![](course_overview.png)
+
+
+
+
+</script></section><section  data-markdown><script type="text/template">
+<!-- small --> 
+# Learning Goals
+
+* Understand the challenges of testing AI components of a system
+
+* Understand the basic steps of a machine learning pipeline
+
+* Apply measures of model quality
+
+* Select mechanisms to assure data quality in production, e.g., detect drift
+
+* Describe opportunities for QA automation in a machine learning pipeline
+
+* Apply basic tests for sensitivity, fairness
+
+
+
+</script></section><section  data-markdown><script type="text/template">
+<!-- small -->
+
+# <!-- fit --> Fall 2019: New Course: Software Engineering for AI-Enabled Systems
+
+
+<!-- colstart -->
+https://ckaestne.github.io/seai/
+* What changes with AI? Requirements, Architecture, Operations, Quality assurance, Process
+* Going beyond Jupyter notebooks, operating AI-enabled systems in practice at scale
+* Software engineering view on AI/ML craze
+
+<!-- col -->
+
+![bg right  fit](image2.png)
+<!-- colend -->
+
+<!-- /small -->
+</script></section><section  data-markdown><script type="text/template">
+# Case Study
+
+
+</script></section><section  data-markdown><script type="text/template">
+# Order?
+
+
+![bg](image3.png)
+
+</script></section><section  data-markdown><script type="text/template">
+## Predicting Delivery Times
+
+What factors may it depend on?
+
+What can be used for learning and prediction?
+
+How to evaluate accuracy?
+
+One model or multiple?
+
+
+</script></section><section ><section data-markdown><script type="text/template">
+
+
+
+# Machine Learning Pipeline
+
+</script></section><section data-markdown><script type="text/template">
+
+
+
+
+## Typical ML Pipeline
+
+- Static
+  - Get labeled data
+  - Identify and extract features
+  - Split data into training and evaluation set
+  - Learn model from training data
+  - Evaluate model on evaluation data
+  - Repeat, revising features
+
+- With production data
+  - Evaluate model on production data; monitor
+  - Select production data for retraining
+  - Update model regularly
+
+</script></section><section data-markdown><script type="text/template">
+<!-- small -->
+
+
+
+## Example Data
+
+| RestaurantID | Order| OrderTime|ReadyTime|PickupTime|
+|-|-|-|-|-|
+| 5 |5A;3;10;11C;C:No onion| 18:11|18:23|18:31|
+|...|
+|...|
+|...|
+
+</script></section></section></div>
+    </div>
+
+    <script src="./../lib/js/head.min.js"></script>
+    <script src="./../js/reveal.js"></script>
+
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // Optional libraries used to extend on reveal.js
+      var deps = [
+        { src: './../lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        { src: './../plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './../plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: './../plugin/zoom-js/zoom.js', async: true },
+        { src: './../plugin/notes/notes.js', async: true },
+        { src: './../plugin/math/math.js', async: true }
+      ];
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        dependencies: deps
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal.getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"controls":true,"progress":true,"theme":"white","slideNumber":true,"hash":true,"center":false}, queryOptions);
+    </script>
+
+    <script src="./../_assets/_assets/mermaid.min.js"></script>
+    <script src="./../_assets/_assets/loadmymarkdown.js"></script>
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
