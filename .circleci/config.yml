@@ -44,3 +44,13 @@ jobs:
             git config user.email "ci-build@cs.cmu.edu"
             git config user.name "ci-build"
             node node_modules/gh-pages/bin/gh-pages.js --dist _static
+
+
+workflows:
+  version: 2
+  workflow:
+    jobs:
+    - build            
+        filters:
+          branches:
+            only: master
