@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>reveal-md</title>
+    <link rel="stylesheet" href="./css/reveal.css" />
+    <link rel="stylesheet" href="./css/theme/white.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+    <link rel="stylesheet" href="./css/print/paper.css" type="text/css" media="print" />
+    <link rel="stylesheet" href="./_assets/_assets/cmu.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template"># Markdown Slides Testbed
+
+Basic setup for creating slides with markdown.
+
+Using a slightly patched version of `reveal-md` ([original version](https://github.com/webpro/reveal-md), [patched version](https://github.com/ckaestne/reveal-md)) which is based on `reveal.js` ([github](https://github.com/hakimel/reveal.js/)). 
+
+## Usage
+
+Each slide deck is in a separate subdirectory. Can use all the usual markdown features of `reveal.js` plus a few custom ones created with scripts in the `_assets` directory.
+
+Basics:
+* Slide separators are `---` for chapters and `----` for slides within a chapter.
+
+Custom extensions in `/_assets/plugin/mymarkdown.js`:
+* `<!-- small -->`, `<!-- smaller -->`, and `<!-- smallish -->` can be used to adjust font sizes in a slide
+* `<!-- split -->` can be used to make a two column slide
+* Explicit column handling, included nested columns and more than two columns, is possible between `<!-- colstart -->` and `<!-- colend -->` with `<!-- col -->` as the separator
+* `<!-- fit -->` in a title tries to make long titles fit to a slide by scaling it down
+* Empty items in a list can be used as a space/separator between two list
+* `<!-- left -->` and `<!-- right -->` change the alignment
+* Mermaid diagrams can be integrated with a code blog in the `mermaid` language
+
+## Reveal-md patch
+
+Some smaller changes to `reveal-md` were necessary, primarily to update to a newer version of `reveal.js` which had a necessary newer version of the markdown parser and some minor changes in file handling.
+
+## Editing
+
+Run `reveal-md . --watch` to run a local webserver that shows the slides and automatically updates on changes to the .md files.
+
+## Static sites and circle-CI automation
+
+To produce static slides, run `reveal-md . --static` (or `npm run generate`). The slides will be created in the `_static` directory. Circle-ci automates the process and pushes the results to the `gh-pages` branch.
+
+</script></section></div>
+    </div>
+
+    <script src="./lib/js/head.min.js"></script>
+    <script src="./js/reveal.js"></script>
+
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // Optional libraries used to extend on reveal.js
+      var deps = [
+        { src: './lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: './plugin/zoom-js/zoom.js', async: true },
+        { src: './plugin/notes/notes.js', async: true },
+        { src: './plugin/math/math.js', async: true }
+      ];
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        dependencies: deps
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal.getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"controls":true,"progress":true,"theme":"white","slideNumber":true,"hash":true,"center":false}, queryOptions);
+    </script>
+
+    <script src="./_assets/_assets/mermaid.min.js"></script>
+    <script src="./_assets/_assets/loadmymarkdown.js"></script>
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
