@@ -41,6 +41,7 @@ jobs:
       - run: 
           name: deploy static slides to gh-pages
           command: |
+            echo x > _static/.nojekyll
             git config user.email "ci-build@cs.cmu.edu"
             git config user.name "ci-build"
             node node_modules/gh-pages/bin/gh-pages.js --dist _static -m 'update static slides [ci skip]'
